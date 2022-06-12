@@ -7,10 +7,10 @@ pipeline {
         APP_CONTAINER_PORT = "5000"
         APP_EXPOSED_PORT = "80"
         IMAGE_TAG = "latest"
-        STAGING = "ezz-statging"
-        PRODUCTION = " ezz-prod"
-        DOCKERHUB_ID = "trainingta"
-        DOCKERHUB_PASSWORD = crendentials('dockerhub_password')
+        STAGING = "chocoapp-staging"
+        PRODUCTION = "chocoapp-prod"
+        DOCKERHUB_ID = "choco1992"
+        DOCKERHUB_PASSWORD = credentials('dockerhub_password')
     }
     agent none
     stages {
@@ -40,7 +40,7 @@ pipeline {
            steps {
               script {
                 sh '''
-                   curl 192.168.56.7 | grep -i "Dimension"
+                   curl 172.17.0.1 | grep -i "Dimension"
                 '''
               }
            }
@@ -55,8 +55,9 @@ pipeline {
                '''
              }
           }
-       }
-       stage ('Login and Push Image on docker hub') {
+      }
+
+      stage ('Login and Push Image on docker hub') {
           agent any
           steps {
              script {
@@ -66,13 +67,15 @@ pipeline {
                '''
              }
           }
-        }
+      }
 
-        stage('Push image in staging and deploy it') {
-            when {
-                expression { GIT_BRANCH == 'origin/main' }
-            }
-      agent none 
+      stage('Push image in staging and deploy it') {
+        when {
+            expression { GIT_BRANCH == 'origin/main' }
+        }
+	agent {
+        	docker { image 'franela/dind' }
+	}
 
         environment {
             HEROKU_API_KEY = credentials('heroku_api_key')
@@ -94,7 +97,9 @@ pipeline {
        when {
            expression { GIT_BRANCH == 'origin/main' }
        }
-     agent none
+	agent {
+        	docker { image 'franela/dind' }
+	}
        environment {
            HEROKU_API_KEY = credentials('heroku_api_key')
        }
@@ -111,8 +116,8 @@ pipeline {
           }
        }
      }
-    }
-    post {
+  }
+  post {
      always {
        script {
          slackNotifier currentBuild.result
