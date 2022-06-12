@@ -3,7 +3,7 @@
 
 pipeline {
     environment {
-        IMAGE_NAME="site web statique"
+        IMAGE_NAME="site-web-statique"
         APP_CONTAINER_PORT="5000"
         APP_EXPOSED_PORT="80"
         IMAGE_TAG="latest"
@@ -13,7 +13,7 @@ pipeline {
         DOCKERHUB_PASSWORD= credentials('dockerhub_password')
     }
     agent none
-    stages {IMAGE_NAME  ="site web statique"
+    stages {IMAGE_NAME  ="site-web-statique"
        
        stage('Build image') {
            agent any
@@ -74,9 +74,7 @@ pipeline {
         when {
             expression { GIT_BRANCH == 'origin/main' }
         }
-	agent {
-        	docker { image 'franela/dind' }
-	}
+	agent any
 
         environment {
             HEROKU_API_KEY = credentials('heroku_api_key')
@@ -98,9 +96,7 @@ pipeline {
        when {
            expression { GIT_BRANCH == 'origin/main' }
        }
-	agent {
-        	docker { image 'franela/dind' }
-	}
+	agent any
        environment {
            HEROKU_API_KEY = credentials('heroku_api_key')
        }
