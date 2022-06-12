@@ -13,7 +13,7 @@ pipeline {
         DOCKERHUB_PASSWORD= credentials('dockerhub_password')
     }
     agent none
-    stages {IMAGE_NAME="site-web-statique"
+    stages {
        
        stage('Build image') {
            agent any
