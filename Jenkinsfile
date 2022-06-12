@@ -4,7 +4,7 @@
 pipeline{
   environment {
     IMAGE_NAME = "staticwebsite"
-    APP_ CONTAINER_PORT = "5000"
+    APP_CONTAINER_PORT = "5000"
     APP_EXPOSED_PORT = "80"
     IMAGE_TAG = "latest"
     STAGING = "ezz-statging"
