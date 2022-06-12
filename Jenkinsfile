@@ -79,7 +79,7 @@ stages {
               expression { GIT_BRANCH == 'origin/master' }
             }
             agent {
-              docker {image 'franela/dind'}
+                     docker {image 'franela/dind'}
             }
              environment {
                  HEROKU_API_KEY = credentials('heroku_api_key')
@@ -103,7 +103,7 @@ stages {
               expression { GIT_BRANCH == 'origin/master' }
             }
             agent {
-              docker {image 'franela/dind'}
+                      docker {image 'franela/dind'}
             }
              environment {
                  HEROKU_API_KEY = credentials('heroku_api_key')
