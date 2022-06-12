@@ -3,24 +3,18 @@
 
 pipeline {
     environment {
-        IMAGE_NAME  =  " site web statique "
-        APP_CONTAINER_PORT  =  " 5000 "
-        APP_EXPOSED_PORT  =  " 80 "
-        IMAGE_TAG  =  " le plus récent "
-        STAGING  =  " ezz-statging "
-        PRODUCTION  =  " ezz-prod "
-        DOCKERHUB_ID  =  " trainingta "
-        DOCKERHUB_PASSWORD  = identifiants( ' dockerhub_password ' )
+        IMAGE_NAME="site web statique"
+        APP_CONTAINER_PORT="5000"
+        APP_EXPOSED_PORT="80"
+        IMAGE_TAG="latest"
+        STAGING=" ezz-statging"
+        PRODUCTION="ezz-prod"
+        DOCKERHUB_ID="trainingta"
+        DOCKERHUB_PASSWORD= credentials('dockerhub_password')
     }
     agent none
-    stages {IMAGE_NAME  =  " site web statique "
-        APP_CONTAINER_PORT  =  " 5000 "
-        APP_EXPOSED_PORT  =  " 80 "
-        IMAGE_TAG  =  " le plus récent "
-        STAGING  =  " ezz-statging "
-        PRODUCTION  =  " ezz-prod "
-        DOCKERHUB_ID  =  " trainingta "
-        DOCKERHUB_PASSWORD  = identifiants( ' dockerhub_password ' )
+    stages {IMAGE_NAME  ="site web statique"
+       
        stage('Build image') {
            agent any
            steps {
