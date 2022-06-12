@@ -3,18 +3,17 @@
 
 pipeline {
     environment {
-        IMAGE_NAME="site-web-statique"
-        APP_CONTAINER_PORT="5000"
-        APP_EXPOSED_PORT="8080"
-        IMAGE_TAG="latest"
-        STAGING=" ezz-statging"
-        PRODUCTION="ezz-prod"
-        DOCKERHUB_ID="trainingta"
-        DOCKERHUB_PASSWORD= credentials('dockerhub_password')
+        IMAGE_NAME = "staticwebsite"
+        APP_CONTAINER_PORT = "5000"
+        APP_EXPOSED_PORT = "80"
+        IMAGE_TAG = "latest"
+        STAGING = "chocoapp-staging"
+        PRODUCTION = "chocoapp-prod"
+        DOCKERHUB_ID = "trainingta"
+        DOCKERHUB_PASSWORD = credentials('dockerhub_password')
     }
     agent none
     stages {
-       
        stage('Build image') {
            agent any
            steps {
@@ -74,7 +73,9 @@ pipeline {
         when {
             expression { GIT_BRANCH == 'origin/main' }
         }
-	agent any
+	agent {
+        	docker { image 'franela/dind' }
+	}
 
         environment {
             HEROKU_API_KEY = credentials('heroku_api_key')
@@ -96,7 +97,9 @@ pipeline {
        when {
            expression { GIT_BRANCH == 'origin/main' }
        }
-	agent any
+	agent {
+        	docker { image 'franela/dind' }
+	}
        environment {
            HEROKU_API_KEY = credentials('heroku_api_key')
        }
