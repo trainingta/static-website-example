@@ -44,7 +44,7 @@ agent none
            steps {
               script {
                 sh '''
-                    curl http://192.168.56.3 | grep -i "Dimension"
+                    curl http://192.168.56.7 | grep -i "Dimension"
                 '''
               }
            }
