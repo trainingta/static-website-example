@@ -3,17 +3,24 @@
 
 pipeline {
     environment {
-        IMAGE_NAME = "staticwebsite"
-        APP_CONTAINER_PORT = "5000"
-        APP_EXPOSED_PORT = "80"
-        IMAGE_TAG = "latest"
-        STAGING = "chocoapp-staging"
-        PRODUCTION = "chocoapp-prod"
-        DOCKERHUB_ID = "choco1992"
-        DOCKERHUB_PASSWORD = credentials('dockerhub_password')
+        IMAGE_NAME  =  " site web statique "
+        APP_CONTAINER_PORT  =  " 5000 "
+        APP_EXPOSED_PORT  =  " 80 "
+        IMAGE_TAG  =  " le plus récent "
+        STAGING  =  " ezz-statging "
+        PRODUCTION  =  " ezz-prod "
+        DOCKERHUB_ID  =  " trainingta "
+        DOCKERHUB_PASSWORD  = identifiants( ' dockerhub_password ' )
     }
     agent none
-    stages {
+    stages {IMAGE_NAME  =  " site web statique "
+        APP_CONTAINER_PORT  =  " 5000 "
+        APP_EXPOSED_PORT  =  " 80 "
+        IMAGE_TAG  =  " le plus récent "
+        STAGING  =  " ezz-statging "
+        PRODUCTION  =  " ezz-prod "
+        DOCKERHUB_ID  =  " trainingta "
+        DOCKERHUB_PASSWORD  = identifiants( ' dockerhub_password ' )
        stage('Build image') {
            agent any
            steps {
@@ -40,7 +47,7 @@ pipeline {
            steps {
               script {
                 sh '''
-                   curl 172.17.0.1 | grep -i "Dimension"
+                   curl 192.168.56.7 | grep -i "Dimension"
                 '''
               }
            }
